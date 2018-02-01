@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode | 485. Max Consecutive Ones]]></title>
+    <url>%2F2018%2F02%2F01%2FLeetCode%20485.%20Max%20Consecutive%20Ones%2F</url>
+    <content type="text"><![CDATA[485. Max Consecutive OnesDescriptionGiven a binary array, find the maximum number of consecutive 1s in this array. ExampleInput: [1,1,0,1,1,1]Output: 3Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3. Solution&emsp;&emsp;遍历一遍即可，注意vector里只有1个1和全是0的特殊情况。 Code12345678910111213141516171819202122class Solution &#123;public: int findMaxConsecutiveOnes(vector&lt;int&gt;&amp; nums) &#123; int max = 0; int count = 0; for(int i = 0; i &lt; nums.size(); i++) &#123; if(nums[i] == 0) &#123; if(count &gt; max) &#123; max = count; &#125; count = 0; &#125; else &#123; count++; &#125; &#125; if(count &gt; max) &#123; max = count; &#125; return max; &#125;&#125;; CostTime: $O(n)$Space: $O(1)$]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>OJ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 442. Find All Duplicates in an Array]]></title>
     <url>%2F2018%2F02%2F01%2FLeetCode%20442.%20Find%20All%20Duplicates%20in%20an%20Array%2F</url>
     <content type="text"><![CDATA[442. Find All Duplicates in an ArrayDescriptionGiven an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once. Find all the elements that appear twice in this array. Could you do it without extra space and in O(n) runtime? ExampleInput:[4,3,2,7,8,2,3,1] Output:[2,3] Solution&emsp;&emsp;注意到1 ≤ a[i] ≤ n，那么如果1-n每个数字只出现一次的话，是可以在排序后满足a[i] = i+1的。不妨令满足a[i] = i+1的i为a[i]的正确位置，每次比较a[i]和a[a[i]-1],如果相同则说明a[i]可能出现两次（即当i不等于a[i]-1时），让i自增；如果不同则交换a[i]和a[a[i]-1]的值，即把a[i]的值放到正确位置上，之后再对新的a[i]的值重复上述的判断。以上操作完成后，如果存在出现两次的数字，则必有一次是出现在非正确的位置上，遍历所有数字即可找出。 Code1234567891011121314151617181920class Solution &#123;public: vector&lt;int&gt; findDuplicates(vector&lt;int&gt;&amp; nums) &#123; vector&lt;int&gt; dup; for(int i = 0; i &lt; nums.size();) &#123; if(nums[i] != nums[nums[i]-1]) &#123; swap(nums[i],nums[nums[i]-1]); &#125; else &#123; i++; &#125; &#125; for(int i = 0; i &lt; nums.size(); i++) &#123; if(nums[i] != i+1) &#123; dup.push_back(nums[i]); &#125; &#125; return dup; &#125;&#125;; CostTime: $O(n)$Space: $O(n)$]]></content>

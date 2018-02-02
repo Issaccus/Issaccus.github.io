@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Code | Dijkstra]]></title>
+    <url>%2F2018%2F02%2F02%2FCode%20Dijkstra%2F</url>
+    <content type="text"><![CDATA[DijkstraDescription &emsp;&emsp;Dijkstra算法解决的是带权重的有向图上单源最短路径问题，该算法要求所有边的权重都为非负值……Dijkstra算法在运行过程中维持的关键信息是一组结点集合S。从源结点s到该集合中每个结点之间的最短路径已经被找到。算法重复从结点集V-S中选择最短路径估计最小的点u，将u加入到集合S，然后对所有从u出发的边进行松弛。（《算法导论》） Matlab Code123456789101112131415161718192021222324252627282930313233343536373839404142434445function [route, dist] = Dijkstra(s, graph)% Dijkstra 单源最短路径算法% s：起始点；graph：带权的邻接矩阵，没有边或者在对角线上的值为inf% route：矩阵，每一列的倒序为起始点到某个终点最短路的顶点序列；dist：行向量，对应每一条最短路的距离% By Issaccus 2018%initializev_num = size(graph,1); %顶点数route = inf(v_num); route(1, :) = 1:v_num;dist = inf(1, v_num);prev = inf(1, v_num);S = ones(1, v_num); S(s) = inf; %值为inf则表示该结点已被真正探索过，放入点集Sfor i = 1:v_num dist(i) = graph(s, i); if ~(dist(i) == inf) %起始点可到达的顶点 prev(i) = s; %前驱都为起始点 endend% slovefor i = 2:v_num [index_dist, index] = min(dist .* S); % S(index) = inf; dist(index) = index_dist; %更新最短距离 for j = 1:v_num if ~(S(j) == inf) %对未放入点集S的点进行松弛操作 if index_dist + graph(index, j) &lt; dist(j) dist(j) = index_dist + graph(index, j); %更新最短距离 prev(j) = index; %更新前驱 end end endend%print routefor i = 1:v_num prev_i = prev(i); j = 2; while ~(prev_i == inf) route(j, i) = prev_i; j = j + 1; prev_i = prev(prev_i); %回溯前驱的前驱 endenddist(s) = 0; end]]></content>
+      <categories>
+        <category>Algorithm Code</category>
+      </categories>
+      <tags>
+        <tag>Code</tag>
+        <tag>Matlab</tag>
+        <tag>Dijkstra</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode | 485. Max Consecutive Ones]]></title>
     <url>%2F2018%2F02%2F01%2FLeetCode%20485.%20Max%20Consecutive%20Ones%2F</url>
     <content type="text"><![CDATA[485. Max Consecutive OnesDescriptionGiven a binary array, find the maximum number of consecutive 1s in this array. ExampleInput: [1,1,0,1,1,1]Output: 3Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3. Solution&emsp;&emsp;遍历一遍即可，注意vector里只有1个1和全是0的特殊情况。 Code12345678910111213141516171819202122class Solution &#123;public: int findMaxConsecutiveOnes(vector&lt;int&gt;&amp; nums) &#123; int max = 0; int count = 0; for(int i = 0; i &lt; nums.size(); i++) &#123; if(nums[i] == 0) &#123; if(count &gt; max) &#123; max = count; &#125; count = 0; &#125; else &#123; count++; &#125; &#125; if(count &gt; max) &#123; max = count; &#125; return max; &#125;&#125;; CostTime: $O(n)$Space: $O(1)$]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>LeetCode-Algorithms</category>
       </categories>
       <tags>
         <tag>OJ</tag>
+        <tag>LeetCode-Array-Easy</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -16,10 +31,12 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20442.%20Find%20All%20Duplicates%20in%20an%20Array%2F</url>
     <content type="text"><![CDATA[442. Find All Duplicates in an ArrayDescriptionGiven an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once. Find all the elements that appear twice in this array. Could you do it without extra space and in O(n) runtime? ExampleInput:[4,3,2,7,8,2,3,1] Output:[2,3] Solution&emsp;&emsp;注意到1 ≤ a[i] ≤ n，那么如果1-n每个数字只出现一次的话，是可以在排序后满足a[i] = i+1的。不妨令满足a[i] = i+1的i为a[i]的正确位置，每次比较a[i]和a[a[i]-1],如果相同则说明a[i]可能出现两次（即当i不等于a[i]-1时），让i自增；如果不同则交换a[i]和a[a[i]-1]的值，即把a[i]的值放到正确位置上，之后再对新的a[i]的值重复上述的判断。以上操作完成后，如果存在出现两次的数字，则必有一次是出现在非正确的位置上，遍历所有数字即可找出。 Code1234567891011121314151617181920class Solution &#123;public: vector&lt;int&gt; findDuplicates(vector&lt;int&gt;&amp; nums) &#123; vector&lt;int&gt; dup; for(int i = 0; i &lt; nums.size();) &#123; if(nums[i] != nums[nums[i]-1]) &#123; swap(nums[i],nums[nums[i]-1]); &#125; else &#123; i++; &#125; &#125; for(int i = 0; i &lt; nums.size(); i++) &#123; if(nums[i] != i+1) &#123; dup.push_back(nums[i]); &#125; &#125; return dup; &#125;&#125;; CostTime: $O(n)$Space: $O(n)$]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>LeetCode-Algorithms</category>
       </categories>
       <tags>
         <tag>OJ</tag>
+        <tag>Code</tag>
+        <tag>LeetCode-Array-Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -27,10 +44,12 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20566.%20Reshape%20the%20Matrix%2F</url>
     <content type="text"><![CDATA[566. Reshape the MatrixDescriptionIn MATLAB, there is a very useful function called ‘reshape’, which can reshape a matrix into a new one with different size but keep its original data. You’re given a matrix represented by a two-dimensional array, and two positive integers r and c representing the row number and column number of the wanted reshaped matrix, respectively. The reshaped matrix need to be filled with all the elements of the original matrix in the same row-traversing order as they were. If the ‘reshape’ operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the original matrix ExampleInput:nums =[[1,2], [3,4]]r = 1, c = 4Output:[[1,2,3,4]]Explanation:The row-traversing of nums is [1,2,3,4]. The new reshaped matrix is a 1 * 4 matrix, fill it row by row by using the previous list. Note The height and width of the given matrix is in range [1, 100]. The given r and c are all positive. Solution&emsp;&emsp;遍历一遍所有数字即可。 Code1234567891011121314151617class Solution &#123;public: vector&lt;vector&lt;int&gt;&gt; matrixReshape(vector&lt;vector&lt;int&gt;&gt;&amp; nums, int r, int c) &#123; int init_row = nums.size(); int init_column = nums[0].size(); if(init_row * init_column != r * c) &#123; return nums; &#125; else &#123; vector&lt;vector&lt;int&gt;&gt; new_num(r,vector&lt;int&gt;(c,0)); for(int i = 0; i &lt; r * c; i++) &#123; new_num[i/c][i%c] = nums[i/init_column][i%init_column]; &#125; return new_num; &#125; &#125;&#125;; Cost(when it can be reshaped)Time: $O(r \ast c)$Space: $O(r \ast c)$]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>LeetCode-Algorithms</category>
       </categories>
       <tags>
         <tag>OJ</tag>
+        <tag>LeetCode-Array-Easy</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -38,10 +57,12 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20561.%20Array%20Partition%20I%2F</url>
     <content type="text"><![CDATA[561. Array Partition IDescriptionGiven an array of 2n integers, your task is to group these integers into n pairs of integer, say $(a_1, b_1), (a_2, b_2), …, (a_n, b_n)$ which makes sum of $min(a_i, b_i)$ for all i from 1 to n as large as possible. ExampleInput: [1,4,3,2] Output: 4Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4). Note n is a positive integer, which is in the range of [1, 10000]. All the integers in the array will be in the range of [-10000, 10000]. Solution&emsp;&emsp;对所有数字从小到大排序后，从最小的数字开始，每隔一个数字相加求和。因为是对每个二元组取min，再把所有的min加起来取max，所以要保证这些min尽可能的大。 Code1234567891011class Solution &#123;public: int arrayPairSum(vector&lt;int&gt;&amp; nums) &#123; sort(nums.begin(), nums.end()); int count = 0; for(int i = 0; i &lt; nums.size(); i = i+2) &#123; count = count + nums[i]; &#125; return count; &#125;&#125;; CostTime: $O(nlogn)$Space: $O(1)$]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>LeetCode-Algorithms</category>
       </categories>
       <tags>
         <tag>OJ</tag>
+        <tag>LeetCode-Array-Easy</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -49,10 +70,12 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20766.%20Toeplitz%20Matrix%2F</url>
     <content type="text"><![CDATA[766. Toeplitz MatrixDescriptionA matrix is Toeplitz if every diagonal from top-left to bottom-right has the same element.Now given an M x N matrix, return True if and only if the matrix is Toeplitz. ExampleInput: matrix = [[1,2,3,4], [5,1,2,3], [9,5,1,2]]Output: TrueExplanation:123451239512 In the above grid, the diagonals are “[9]”, “[5, 5]”, “[1, 1, 1]”, “[2, 2, 2]”, “[3, 3]”, “[4]”, and in each diagonal all elements are the same, so the answer is True. Note matrix will be a 2D array of integers. matrix will have a number of rows and columns in range [1, 20]. matrix[i][j] will be integers in range [0, 99]. Solution&emsp;&emsp;遍历每一条对角线即可，注意数组不要越界。 Code123456789101112131415161718192021222324class Solution &#123;public: bool isToeplitzMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) &#123; int x_size = matrix.size(); //row number int y_size = matrix[0].size(); //column number //left-down diagonals for(int i = 0; i &lt; x_size; i++) &#123; for(int j = i+1; j &lt; x_size &amp;&amp; j-i &lt; y_size; j++) &#123; if(matrix[j][j-i] != matrix[j-1][j-i-1]) &#123; return false; &#125; &#125; &#125; //right-up diagonals for(int i = 1; i &lt; y_size; i++) &#123; for(int j = 1; j+i &lt; y_size &amp;&amp; j &lt; x_size; j++) &#123; if(matrix[j][j+i] != matrix[j-1][j+i-1]) &#123; return false; &#125; &#125; &#125; return true; &#125;&#125;; &emsp;&emsp;其实可以直接两层循环遍历矩阵，判断matrix[i][j]是否等于matrix[i-1][j-1]…并不用分成这么多对角线… CostTime: $O(M \ast N)$Space: $O(1)$]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>LeetCode-Algorithms</category>
       </categories>
       <tags>
         <tag>OJ</tag>
+        <tag>LeetCode-Array-Easy</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -63,7 +86,8 @@
         <category>《统计学习方法》by 李航</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
+        <tag>Machine Learning</tag>
+        <tag>统计学习方法</tag>
       </tags>
   </entry>
 </search>

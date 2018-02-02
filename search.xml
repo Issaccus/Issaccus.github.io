@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Code | Floyd-Warshall]]></title>
+    <url>%2F2018%2F02%2F02%2FCode%20Floyd-Warshall%2F</url>
+    <content type="text"><![CDATA[Floyd-WarshallDescription &emsp;&emsp;Floyd-Warshall算法解决的是所有结点对的最短路径问题，该算法允许负权重的存在，但不允许存在权重为负值的环路。Floyd-Warshall算法考虑的是一条最短路径上的中间结点。假设所有结点为 $V = \{1, 2, …, n\}$ ，考虑某个子集 $K = \{1, 2, …, k\}$ ，令 $p_{ij}^{k}$ 为从 $i$ 到 $j$ 的一条最短路径,其中间结点都属于子集K, $d_{ij}^{k}$ 为对应的距离。若结点 $k$ 不属于该最短路径，则 $d_{ij}^{k} = d_{ij}^{k-1}$ ；否则 $d_{ij}^{k} = d_{ik}^{k-1} + d_{kj}^{k-1}$。当 $K = V$ 时，即可解出。 Matlab Code12345678910111213141516171819202122232425262728293031323334353637383940function [passby, dist] = Floyd_Warshall(G)% Floyd_Warshall所有结点对最短路径问题% passby：存储中间结点矩阵，passby(i,j)=k则说明i-j的最短路径经过k% dist：最短距离矩阵% G：带权邻接矩阵，对角线的值为0% By Issaccus 2018%initializev_num = size(G, 1);old_dist = G;old_passby = inf(v_num);dist = zeros(v_num);passby = zeros(v_num);for i = 1:v_num for j = 1:v_num if i == j || G(i, j) == inf old_passby(i, j) = inf; %i-j之间没有中间结点 else old_passby(i, j) = i; end endend%solvefor k = 1:v_num for i = 1:v_num for j = 1:v_num if old_dist(i, j) &gt; old_dist(i, k) + old_dist(k, j) %k在i-j的最短路径上 dist(i, j) = old_dist(i, k) + old_dist(k, j); %更新为i-k-j的路径 passby(i, j) = old_passby(k, j); else %k不在i-j的最短路径上 dist(i, j) = old_dist(i, j); passby(i, j) = old_passby(i, j); end end end old_dist = dist; old_passby = passby;endend]]></content>
+      <categories>
+        <category>Algorithm Code</category>
+      </categories>
+      <tags>
+        <tag>Code</tag>
+        <tag>Matlab</tag>
+        <tag>Floyd-Warshall</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Code | Dijkstra]]></title>
     <url>%2F2018%2F02%2F02%2FCode%20Dijkstra%2F</url>
     <content type="text"><![CDATA[DijkstraDescription &emsp;&emsp;Dijkstra算法解决的是带权重的有向图上单源最短路径问题，该算法要求所有边的权重都为非负值……Dijkstra算法在运行过程中维持的关键信息是一组结点集合S。从源结点s到该集合中每个结点之间的最短路径已经被找到。算法重复从结点集V-S中选择最短路径估计最小的点u，将u加入到集合S，然后对所有从u出发的边进行松弛。（《算法导论》） Matlab Code123456789101112131415161718192021222324252627282930313233343536373839404142434445function [route, dist] = Dijkstra(s, graph)% Dijkstra 单源最短路径算法% s：起始点；graph：带权的邻接矩阵，没有边或者在对角线上的值为inf% route：矩阵，每一列的倒序为起始点到某个终点最短路的顶点序列；dist：行向量，对应每一条最短路的距离% By Issaccus 2018%initializev_num = size(graph,1); %顶点数route = inf(v_num); route(1, :) = 1:v_num;dist = inf(1, v_num);prev = inf(1, v_num);S = ones(1, v_num); S(s) = inf; %值为inf则表示该结点已被真正探索过，放入点集Sfor i = 1:v_num dist(i) = graph(s, i); if ~(dist(i) == inf) %起始点可到达的顶点 prev(i) = s; %前驱都为起始点 endend% slovefor i = 2:v_num [index_dist, index] = min(dist .* S); % S(index) = inf; dist(index) = index_dist; %更新最短距离 for j = 1:v_num if ~(S(j) == inf) %对未放入点集S的点进行松弛操作 if index_dist + graph(index, j) &lt; dist(j) dist(j) = index_dist + graph(index, j); %更新最短距离 prev(j) = index; %更新前驱 end end endend%print routefor i = 1:v_num prev_i = prev(i); j = 2; while ~(prev_i == inf) route(j, i) = prev_i; j = j + 1; prev_i = prev(prev_i); %回溯前驱的前驱 endenddist(s) = 0; end]]></content>
@@ -22,8 +35,8 @@
       </categories>
       <tags>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
         <tag>Code</tag>
+        <tag>LeetCode-Array-Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -35,8 +48,8 @@
       </categories>
       <tags>
         <tag>OJ</tag>
-        <tag>Code</tag>
         <tag>LeetCode-Array-Medium</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -48,8 +61,8 @@
       </categories>
       <tags>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
         <tag>Code</tag>
+        <tag>LeetCode-Array-Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -61,8 +74,8 @@
       </categories>
       <tags>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
         <tag>Code</tag>
+        <tag>LeetCode-Array-Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -74,8 +87,8 @@
       </categories>
       <tags>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
         <tag>Code</tag>
+        <tag>LeetCode-Array-Easy</tag>
       </tags>
   </entry>
   <entry>

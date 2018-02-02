@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="Issaccus Table">
 <meta property="og:description" content="AV.initialize(&quot;2PtomCH1ik4PEkcJtPt0UIsW-gzGzoHsz&quot;, &quot;SkMlRGp1AL8YnxiByjOJtCih&quot;);    var time=0   var title=&quot;&quot;   var url=&quot;&quot;   var query = new AV.Query(&apos;Counter&apos;);   query.notEqualTo(&apos;id&apos;,0);   query.d">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-01T12:05:00.164Z">
+<meta property="og:updated_time" content="2018-02-02T11:57:47.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Top">
 <meta name="twitter:description" content="AV.initialize(&quot;2PtomCH1ik4PEkcJtPt0UIsW-gzGzoHsz&quot;, &quot;SkMlRGp1AL8YnxiByjOJtCih&quot;);    var time=0   var title=&quot;&quot;   var url=&quot;&quot;   var query = new AV.Query(&apos;Counter&apos;);   query.notEqualTo(&apos;id&apos;,0);   query.d">
@@ -363,9 +363,9 @@
   var query = new AV.Query('Counter');
   query.notEqualTo('id',0);
   query.descending('time');
-  query.limit(20);
+  query.limit(10);
   query.find().then(function (todo) {
-    for (var i=0;i<20;i++){
+    for (var i=0;i<10;i++){
       var result=todo[i].attributes;
       time=result.time;
       title=result.title;

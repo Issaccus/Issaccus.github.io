@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Code | Floyd-Warshall]]></title>
-    <url>%2F2018%2F02%2F02%2FCode%20Floyd-Warshall%2F</url>
+    <title><![CDATA[DeViSE A Deep Visual-Semantic Embedding Model]]></title>
+    <url>%2F2018%2F02%2F03%2FDeViSE%20A%20Deep%20Visual-Semantic%20Embedding%20Model%2F</url>
+    <content type="text"><![CDATA[DeViSE: A Deep Visual-Semantic Embedding ModelAbstract&emsp;&emsp;在视觉识别任务中，当需要识别的分类很多时，训练数据（已标记的图片）的匮乏限制了识别系统的识别能力。本文利用已标记的图片数据（ labeled image data）和未注释文本中的语义信息（ semantic information gleaned from unannotated text）建立了深度视觉-语义嵌入模型（DeViSE），并在”1000-class ImageNet object recognition challenge”达到最优的性能，同时说明了可以通过充分利用语义信息来对训练数据集外的10,000个图像标签进行预测。 Introduction&emsp;&emsp;视觉世界由大量物体组成，而物体的标签是模糊的，对于不同的任务可能有不同的标签，或者可能存在多个标签。当前最先进的识别系统采用了严格定义一个小的标签类，并人为地把图像指派给不同标签的方法，根据标签建立已标记的训练数据集，识别系统即建立在一个N类的离散分类器上。因为N个标签是离散且无关的，识别系统就不能将和已有标签相关的语义信息转移到未曾见过的词语，一个解决办法就是不再人为地把图像划分到离散的类里，而是考虑视觉空间的自然连续性。&emsp;&emsp;DeViSE利用文本信息来学习标签之间的语义联系，并把图像映射到一个语义嵌入空间。DeviSE和目前最先进的识别系统有同级别的性能，并且可以利用视觉和语义之间的相似性来为未见过的分类预测其标签。 Previous Work&emsp;&emsp;… Proposed Approach&emsp;&emsp;方法的目标是利用文本域上学习到的语义信息，转移到一个训练好的识别系统上。首先预训练一个简单的神经语言模型来学习词语的向量表示，同时再预训练一个最先进的物体识别神经网络，连同传统的softmax输出层。然后使用softmax输出层的上一层，重新训练来预测语言模型得到的向量表示，由此建立一个深度的视觉-语义模型。 Language Model Pre-training&emsp;&emsp;The skip-gram text modeling architecture [1, 2]&emsp;&emsp;模型通过预测文档中每个词项的邻近词项将词项表示成嵌入向量。因为同义词倾向于出项在相似的语境下，用这个简单的目标函数驱使模型为语义相关的词语学习到相似的嵌入向量。&emsp;&emsp;数据集： 从wikipedia.org上抽取的5,700,000个文档，包含5,400,000,000个词语。网页上的文本被分割成若干个词语或词组，和常用的视觉物体识别数据集（ Imagenet: A large-scale hierarchical image database）组成了一个约155,000个词项的词典。 Visual Model Pre-training&emsp;&emsp;based on the winning model for the 1,000-class ImageNet Large Scale Visual Recognition Challenge (ILSVRC) 2012 [1]&emsp;&emsp;该模型作为性能比较的基准，同时也是视觉-语义嵌入模型的初始化之一。&emsp;&emsp;数据集：ILSVRC 2012 1K dataset Deep Visual-Semantic Embedding Model&emsp;&emsp;Continued…]]></content>
+      <categories>
+        <category>Paper Reading Notes</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Computer Vision</tag>
+        <tag>Natural Language Processing</tag>
+        <tag>Visual Recognition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Floyd-Warshall]]></title>
+    <url>%2F2018%2F02%2F02%2FFloyd-Warshall%2F</url>
     <content type="text"><![CDATA[Floyd-WarshallDescription &emsp;&emsp;Floyd-Warshall算法解决的是所有结点对的最短路径问题，该算法允许负权重的存在，但不允许存在权重为负值的环路。Floyd-Warshall算法考虑的是一条最短路径上的中间结点。假设所有结点为 $V = \{1, 2, …, n\}$ ，考虑某个子集 $K = \{1, 2, …, k\}$ ，令 $p_{ij}^{k}$ 为从 $i$ 到 $j$ 的一条最短路径,其中间结点都属于子集K, $d_{ij}^{k}$ 为对应的距离。若结点 $k$ 不属于该最短路径，则 $d_{ij}^{k} = d_{ij}^{k-1}$ ；否则 $d_{ij}^{k} = d_{ik}^{k-1} + d_{kj}^{k-1}$。当 $K = V$ 时，即可解出。 Matlab Code12345678910111213141516171819202122232425262728293031323334353637383940function [passby, dist] = Floyd_Warshall(G)% Floyd_Warshall所有结点对最短路径问题% passby：存储中间结点矩阵，passby(i,j)=k则说明i-j的最短路径经过k% dist：最短距离矩阵% G：带权邻接矩阵，对角线的值为0% By Issaccus 2018%initializev_num = size(G, 1);old_dist = G;old_passby = inf(v_num);dist = zeros(v_num);passby = zeros(v_num);for i = 1:v_num for j = 1:v_num if i == j || G(i, j) == inf old_passby(i, j) = inf; %i-j之间没有中间结点 else old_passby(i, j) = i; end endend%solvefor k = 1:v_num for i = 1:v_num for j = 1:v_num if old_dist(i, j) &gt; old_dist(i, k) + old_dist(k, j) %k在i-j的最短路径上 dist(i, j) = old_dist(i, k) + old_dist(k, j); %更新为i-k-j的路径 passby(i, j) = old_passby(k, j); else %k不在i-j的最短路径上 dist(i, j) = old_dist(i, j); passby(i, j) = old_passby(i, j); end end end old_dist = dist; old_passby = passby;endend]]></content>
       <categories>
         <category>Algorithm Code</category>
@@ -14,8 +28,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Code | Dijkstra]]></title>
-    <url>%2F2018%2F02%2F02%2FCode%20Dijkstra%2F</url>
+    <title><![CDATA[Dijkstra]]></title>
+    <url>%2F2018%2F02%2F02%2FDijkstra%2F</url>
     <content type="text"><![CDATA[DijkstraDescription &emsp;&emsp;Dijkstra算法解决的是带权重的有向图上单源最短路径问题，该算法要求所有边的权重都为非负值……Dijkstra算法在运行过程中维持的关键信息是一组结点集合S。从源结点s到该集合中每个结点之间的最短路径已经被找到。算法重复从结点集V-S中选择最短路径估计最小的点u，将u加入到集合S，然后对所有从u出发的边进行松弛。（《算法导论》） Matlab Code123456789101112131415161718192021222324252627282930313233343536373839404142434445function [route, dist] = Dijkstra(s, graph)% Dijkstra 单源最短路径算法% s：起始点；graph：带权的邻接矩阵，没有边或者在对角线上的值为inf% route：矩阵，每一列的倒序为起始点到某个终点最短路的顶点序列；dist：行向量，对应每一条最短路的距离% By Issaccus 2018%initializev_num = size(graph,1); %顶点数route = inf(v_num); route(1, :) = 1:v_num;dist = inf(1, v_num);prev = inf(1, v_num);S = ones(1, v_num); S(s) = inf; %值为inf则表示该结点已被真正探索过，放入点集Sfor i = 1:v_num dist(i) = graph(s, i); if ~(dist(i) == inf) %起始点可到达的顶点 prev(i) = s; %前驱都为起始点 endend% slovefor i = 2:v_num [index_dist, index] = min(dist .* S); % S(index) = inf; dist(index) = index_dist; %更新最短距离 for j = 1:v_num if ~(S(j) == inf) %对未放入点集S的点进行松弛操作 if index_dist + graph(index, j) &lt; dist(j) dist(j) = index_dist + graph(index, j); %更新最短距离 prev(j) = index; %更新前驱 end end endend%print routefor i = 1:v_num prev_i = prev(i); j = 2; while ~(prev_i == inf) route(j, i) = prev_i; j = j + 1; prev_i = prev(prev_i); %回溯前驱的前驱 endenddist(s) = 0; end]]></content>
       <categories>
         <category>Algorithm Code</category>
@@ -31,12 +45,13 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20485.%20Max%20Consecutive%20Ones%2F</url>
     <content type="text"><![CDATA[485. Max Consecutive OnesDescriptionGiven a binary array, find the maximum number of consecutive 1s in this array. ExampleInput: [1,1,0,1,1,1]Output: 3Explanation: The first two digits or the last three digits are consecutive 1s. The maximum number of consecutive 1s is 3. Solution&emsp;&emsp;遍历一遍即可，注意vector里只有1个1和全是0的特殊情况。 Code12345678910111213141516171819202122class Solution &#123;public: int findMaxConsecutiveOnes(vector&lt;int&gt;&amp; nums) &#123; int max = 0; int count = 0; for(int i = 0; i &lt; nums.size(); i++) &#123; if(nums[i] == 0) &#123; if(count &gt; max) &#123; max = count; &#125; count = 0; &#125; else &#123; count++; &#125; &#125; if(count &gt; max) &#123; max = count; &#125; return max; &#125;&#125;; CostTime: $O(n)$Space: $O(1)$]]></content>
       <categories>
-        <category>LeetCode-Algorithms</category>
+        <category>LeetCode</category>
+        <category>Array-Easy</category>
       </categories>
       <tags>
         <tag>Code</tag>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
+        <tag>LeetCode-Algorithms</tag>
       </tags>
   </entry>
   <entry>
@@ -44,12 +59,13 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20442.%20Find%20All%20Duplicates%20in%20an%20Array%2F</url>
     <content type="text"><![CDATA[442. Find All Duplicates in an ArrayDescriptionGiven an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once. Find all the elements that appear twice in this array. Could you do it without extra space and in O(n) runtime? ExampleInput:[4,3,2,7,8,2,3,1] Output:[2,3] Solution&emsp;&emsp;注意到1 ≤ a[i] ≤ n，那么如果1-n每个数字只出现一次的话，是可以在排序后满足a[i] = i+1的。不妨令满足a[i] = i+1的i为a[i]的正确位置，每次比较a[i]和a[a[i]-1],如果相同则说明a[i]可能出现两次（即当i不等于a[i]-1时），让i自增；如果不同则交换a[i]和a[a[i]-1]的值，即把a[i]的值放到正确位置上，之后再对新的a[i]的值重复上述的判断。以上操作完成后，如果存在出现两次的数字，则必有一次是出现在非正确的位置上，遍历所有数字即可找出。 Code1234567891011121314151617181920class Solution &#123;public: vector&lt;int&gt; findDuplicates(vector&lt;int&gt;&amp; nums) &#123; vector&lt;int&gt; dup; for(int i = 0; i &lt; nums.size();) &#123; if(nums[i] != nums[nums[i]-1]) &#123; swap(nums[i],nums[nums[i]-1]); &#125; else &#123; i++; &#125; &#125; for(int i = 0; i &lt; nums.size(); i++) &#123; if(nums[i] != i+1) &#123; dup.push_back(nums[i]); &#125; &#125; return dup; &#125;&#125;; CostTime: $O(n)$Space: $O(n)$]]></content>
       <categories>
-        <category>LeetCode-Algorithms</category>
+        <category>LeetCode</category>
+        <category>Array-Medium</category>
       </categories>
       <tags>
         <tag>Code</tag>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Medium</tag>
+        <tag>LeetCode-Algorithms</tag>
       </tags>
   </entry>
   <entry>
@@ -57,12 +73,13 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20566.%20Reshape%20the%20Matrix%2F</url>
     <content type="text"><![CDATA[566. Reshape the MatrixDescriptionIn MATLAB, there is a very useful function called ‘reshape’, which can reshape a matrix into a new one with different size but keep its original data. You’re given a matrix represented by a two-dimensional array, and two positive integers r and c representing the row number and column number of the wanted reshaped matrix, respectively. The reshaped matrix need to be filled with all the elements of the original matrix in the same row-traversing order as they were. If the ‘reshape’ operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the original matrix ExampleInput:nums =[[1,2], [3,4]]r = 1, c = 4Output:[[1,2,3,4]]Explanation:The row-traversing of nums is [1,2,3,4]. The new reshaped matrix is a 1 * 4 matrix, fill it row by row by using the previous list. Note The height and width of the given matrix is in range [1, 100]. The given r and c are all positive. Solution&emsp;&emsp;遍历一遍所有数字即可。 Code1234567891011121314151617class Solution &#123;public: vector&lt;vector&lt;int&gt;&gt; matrixReshape(vector&lt;vector&lt;int&gt;&gt;&amp; nums, int r, int c) &#123; int init_row = nums.size(); int init_column = nums[0].size(); if(init_row * init_column != r * c) &#123; return nums; &#125; else &#123; vector&lt;vector&lt;int&gt;&gt; new_num(r,vector&lt;int&gt;(c,0)); for(int i = 0; i &lt; r * c; i++) &#123; new_num[i/c][i%c] = nums[i/init_column][i%init_column]; &#125; return new_num; &#125; &#125;&#125;; Cost(when it can be reshaped)Time: $O(r \ast c)$Space: $O(r \ast c)$]]></content>
       <categories>
-        <category>LeetCode-Algorithms</category>
+        <category>LeetCode</category>
+        <category>Array-Easy</category>
       </categories>
       <tags>
         <tag>Code</tag>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
+        <tag>LeetCode-Algorithms</tag>
       </tags>
   </entry>
   <entry>
@@ -70,12 +87,13 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20561.%20Array%20Partition%20I%2F</url>
     <content type="text"><![CDATA[561. Array Partition IDescriptionGiven an array of 2n integers, your task is to group these integers into n pairs of integer, say $(a_1, b_1), (a_2, b_2), …, (a_n, b_n)$ which makes sum of $min(a_i, b_i)$ for all i from 1 to n as large as possible. ExampleInput: [1,4,3,2] Output: 4Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4). Note n is a positive integer, which is in the range of [1, 10000]. All the integers in the array will be in the range of [-10000, 10000]. Solution&emsp;&emsp;对所有数字从小到大排序后，从最小的数字开始，每隔一个数字相加求和。因为是对每个二元组取min，再把所有的min加起来取max，所以要保证这些min尽可能的大。 Code1234567891011class Solution &#123;public: int arrayPairSum(vector&lt;int&gt;&amp; nums) &#123; sort(nums.begin(), nums.end()); int count = 0; for(int i = 0; i &lt; nums.size(); i = i+2) &#123; count = count + nums[i]; &#125; return count; &#125;&#125;; CostTime: $O(nlogn)$Space: $O(1)$]]></content>
       <categories>
-        <category>LeetCode-Algorithms</category>
+        <category>LeetCode</category>
+        <category>Array-Easy</category>
       </categories>
       <tags>
         <tag>Code</tag>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
+        <tag>LeetCode-Algorithms</tag>
       </tags>
   </entry>
   <entry>
@@ -83,12 +101,13 @@
     <url>%2F2018%2F02%2F01%2FLeetCode%20766.%20Toeplitz%20Matrix%2F</url>
     <content type="text"><![CDATA[766. Toeplitz MatrixDescriptionA matrix is Toeplitz if every diagonal from top-left to bottom-right has the same element.Now given an M x N matrix, return True if and only if the matrix is Toeplitz. ExampleInput: matrix = [[1,2,3,4], [5,1,2,3], [9,5,1,2]]Output: TrueExplanation:123451239512 In the above grid, the diagonals are “[9]”, “[5, 5]”, “[1, 1, 1]”, “[2, 2, 2]”, “[3, 3]”, “[4]”, and in each diagonal all elements are the same, so the answer is True. Note matrix will be a 2D array of integers. matrix will have a number of rows and columns in range [1, 20]. matrix[i][j] will be integers in range [0, 99]. Solution&emsp;&emsp;遍历每一条对角线即可，注意数组不要越界。 Code123456789101112131415161718192021222324class Solution &#123;public: bool isToeplitzMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) &#123; int x_size = matrix.size(); //row number int y_size = matrix[0].size(); //column number //left-down diagonals for(int i = 0; i &lt; x_size; i++) &#123; for(int j = i+1; j &lt; x_size &amp;&amp; j-i &lt; y_size; j++) &#123; if(matrix[j][j-i] != matrix[j-1][j-i-1]) &#123; return false; &#125; &#125; &#125; //right-up diagonals for(int i = 1; i &lt; y_size; i++) &#123; for(int j = 1; j+i &lt; y_size &amp;&amp; j &lt; x_size; j++) &#123; if(matrix[j][j+i] != matrix[j-1][j+i-1]) &#123; return false; &#125; &#125; &#125; return true; &#125;&#125;; &emsp;&emsp;其实可以直接两层循环遍历矩阵，判断matrix[i][j]是否等于matrix[i-1][j-1]…并不用分成这么多对角线… CostTime: $O(M \ast N)$Space: $O(1)$]]></content>
       <categories>
-        <category>LeetCode-Algorithms</category>
+        <category>LeetCode</category>
+        <category>Array-Easy</category>
       </categories>
       <tags>
         <tag>Code</tag>
         <tag>OJ</tag>
-        <tag>LeetCode-Array-Easy</tag>
+        <tag>LeetCode-Algorithms</tag>
       </tags>
   </entry>
   <entry>
@@ -96,6 +115,7 @@
     <url>%2F2018%2F01%2F31%2FCh1%20%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E6%A6%82%E8%AE%BA%EF%BC%881%EF%BC%89%2F</url>
     <content type="text"><![CDATA[统计学习基本概念&emsp;&emsp;对象：数据（data）&emsp;&emsp;数据的基本假设：同类数据具有一定的规律统计性&emsp;&emsp;目的：对数据进行预测和分析 方法&emsp;&emsp;监督学习（supervised learning）&emsp;&emsp;非监督学习（unsupervised learning）&emsp;&emsp;半监督学习（semi-supervised learning）&emsp;&emsp;强化学习（reinforcement learning） 监督学习&emsp;&emsp;（1）从有限的训练数据（training data）集合出发，假设数据独立同分布&emsp;&emsp;（2）确定假设空间（hypothesis space），即假设要学习的模型属于某个函数的集合&emsp;&emsp;（3）确定评价准则（evaluation criterion），即选取最优模型的策略&emsp;&emsp;（4）实现选取最优模型的算法，即学习的算法&emsp;&emsp;（5）通过学习方法选择最优模型&emsp;&emsp;（6）利用最优模型对新数据进行预测或分析 三要素&emsp;&emsp;模型（model）：模型的假设空间&emsp;&emsp;策略（strategy）：模型选择的准则&emsp;&emsp;算法（algorithm）：模型学习的算法 监督学习基本概念&emsp;&emsp;输入空间（input space）：输入的所有可能取值的集合&emsp;&emsp;输出空间（output space）：输出的所有可能取值的集合&emsp;&emsp;实例（instance）：每个具体的输入，通常由特征向量（feature vector）表示&emsp;&emsp;特征空间（feature space）：所有特征向量存在的空间。模型实际上都是定义在特征空间上&emsp;&emsp;基本假设：输入和输出的随机变量 $X、Y$ 遵循联合概率分布 $P(X,Y)$ 习惯表示&emsp;&emsp;输入、输出变量用大写字母表示，如 $X、Y$&emsp;&emsp;输入、输出变量所取的值用小写字母表示，如 $x、y$&emsp;&emsp;$x_i$ 表示多个输入变量中的第 $i$ 个&emsp;&emsp;实例$x_i$的特征向量 $x_i = (x_i^{(1)},x_i^{(2)},…,x_i^{(n)})^{T}$，$x_i^{(j)}$ 表示 $x_i$ 的第 $j$ 个特征&emsp;&emsp;训练集由输入输出对，即样本（sample）组成，通常表示为 $T = \lbrace (x_1,y_1) ,(x_2,y_2) ,…,(x_N,y_N) \rbrace$&emsp;&emsp;对具体输入进行相应的输出预测时，写作 $P(y|x)$ （模型为概率模型，即由条件分布 $P(Y|X)$ 表示）或 $y = f(x)$ （模型为非概率模型，即由决策函数 $Y = f(X)$ 表示） 不同类型&emsp;&emsp;回归问题：输入和输出变量均为连续变量的预测问题&emsp;&emsp;分类问题：输出变量为有限个离散变量的预测问题&emsp;&emsp;标注问题：输入和输出变量均为变量序列的预测问题 统计学习三要素模型&emsp;&emsp;监督学习过程中，模型即为所要学习的条件概率分布或决策函数，而模型的假设空间（hypothesis space）包含所有可能的条件概率分布和决策函数。假设空间中的模型一般有无穷多个。&emsp;&emsp;假设空间用 $F$ 表示。&emsp;&emsp;$F$ 可以定义为决策函数的集合，$F = \lbrace f|Y = f(X) \rbrace$ 。此时 $F$ 通常为由一个参数向量 $\theta$ 决定的函数族。$F = \lbrace f|Y = f_{\theta}(X), \theta \in R^{n} \rbrace$ ,其中 $n$ 维欧氏空间 $R^{n}$ 称为参数空间（parameter space）。&emsp;&emsp;$F$ 也可以定义为条件概率的集合，$F = \lbrace P|P(Y|X) \rbrace$ 。此时 $F$ 通常也为由一个参数向量 $\theta$ 决定的条件概率分布族， $F = \lbrace P|P_\theta(Y|X) , \theta \in R^{n}\rbrace$ 。 策略&emsp;&emsp;考虑用什么样的准则来从假设空间中选取最优模型，引入一些概念。&emsp;&emsp;（1）损失函数（loss function）：用来度量一次预测的错误程度，为 $f(X)$ 和 $Y$ 的非负实值函数，记作 $L(Y,f(X))$ 。&emsp;&emsp;常用的损失函数：&emsp;&emsp;0-1损失函数（0-1 loss function）：$L(Y,f(X)) = \left \{ \begin{matrix}1,Y\neq f(X) \\ 0,Y=f(X) \end{matrix}\right.$&emsp;&emsp;平方损失函数（quadratic loss function）：$L(Y,f(X)) = (Y-f(X))^{2}$&emsp;&emsp;绝对损失函数（absolute loss function）：$L(Y,f(X)) = |Y-f(X)|$&emsp;&emsp;对数似然损失函数（log-likelihood loss function）：$L(Y,P(Y|X)) = -logP(Y|X)$&emsp;&emsp;（2）风险函数（risk function）/期望损失（expected loss）：平均意义下模型预测的好坏，即损失函数的期望，或者说是 $f(X)$ 关于联合分布 $P(X,Y)$ 的平均意义下的损失。&emsp;&emsp;&emsp;&emsp;$R_{exp}(f) = E_p[L(Y,f(X))] = \int_{X \ast Y} L(y,f(x))P(x,y)dxdy$&emsp;&emsp;（3）经验风险（empirical risk）/经验损失（empirical loss）：模型关于训练数据集的平均损失。&emsp;&emsp;&emsp;&emsp;$R_{emp}(f) = \frac{1}{N} \sum_{i=1}^{N} L(y_i,f(x_i))$&emsp;&emsp;学习的目标是选择期望风险最小的模型，然而联合分布 $P(X,Y)$ 未知，根据大数定律，当样本容量区域正无穷时，经验风险趋近于期望风险，故可用经验风险来估计期望风险。&emsp;&emsp;而实际中训练样本数目有限，需要矫正经验风险。&emsp;&emsp;（4）结构风险（structural risk）：在经验风险的基础上加上表示模型复杂度的正则化项（regularizer）。&emsp;&emsp;&emsp;&emsp;$R_{srm}(f) = \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i)) + \lambda J(f)$&emsp;&emsp;$J(f)$ 为模型的复杂度，是定义在假设空间 $F$ 上的泛函。模型 $f$ 越复杂， $J(f)$ 越大，反之则越小； $\lambda$ 为非负系数，用来权衡经验风险和模型复杂度。&emsp;&emsp;（5）经验风险最小化（empirical risk minimization，ERM）：即认为，经验风险最小的模型为最优模型。此时最优模型的求解等价于求解最优化问题：&emsp;&emsp;&emsp;&emsp;$\underset{f \in F}{min} \quad \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i))$&emsp;&emsp;（5）结构风险最小化（structural risk minimization，SRM）：即认为，结构风险最小的模型为最优模型。此时最优模型的求解等价于求解最优化问题：&emsp;&emsp;&emsp;&emsp;$\underset{f \in F}{min} \quad \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i)) + \lambda J(f)$ 算法&emsp;&emsp;此时，监督学习问题归结为最优化问题，算法即为求解最优化问题的算法。通常最优化问题的显式的解析解不存在，则需要应用数值计算的方法求解，关键在于如何高效地找到全局最优解。]]></content>
       <categories>
+        <category>Book Reading Notes</category>
         <category>《统计学习方法》by 李航</category>
       </categories>
       <tags>

@@ -521,6 +521,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/Ch1 A Tour of Computer Systems (1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Issaccus Table">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/Ch1 A Tour of Computer Systems (1)/" itemprop="url">Ch1 A Tour of Computer Systems (1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-03-03T19:36:42+08:00">
+                2018-03-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Book-Reading-Notes，-CSAPP/" itemprop="url" rel="index">
+                    <span itemprop="name">Book Reading Notes， CSAPP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/02/Ch1 A Tour of Computer Systems (1)/" class="leancloud_visitors" data-flag-title="Ch1 A Tour of Computer Systems (1)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1,211
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Information-Is-Bits-Context"><a href="#Information-Is-Bits-Context" class="headerlink" title="Information Is Bits + Context"></a>Information Is Bits + Context</h3><p>hello.c</p>
+<blockquote>
+<p> The source program is <strong>a sequence of bits</strong>, each with a value of <strong>0 or 1</strong>, organized in <strong>8-bit chunks called bytes</strong>. Each byte represents some text character in the program.</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"hello, world\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A fundamental idea</p>
+<blockquote>
+<p><strong>All information</strong> in a system—including disk files, programs stored in memory, user data stored in memory, and data transferred across a network—<strong>is represented as a bunch of bits</strong>. The only thing that distinguishes different data objects is the <strong>context</strong> in which we view them. </p>
+</blockquote>
+<h3 id="Programs-Are-Translated-by-Other-Programs-into-Different-Forms"><a href="#Programs-Are-Translated-by-Other-Programs-into-Different-Forms" class="headerlink" title="Programs Are Translated by Other Programs into Different Forms"></a>Programs Are Translated by Other Programs into Different Forms</h3><blockquote>
+<p>The hello program begins life as <strong>a high-level C program</strong>. However, in order to run hello.c on the system, the individual C statements must be <strong>translated by other programs</strong> into <strong>a sequence of low-level machine-language instructions</strong>.These instructions are then packaged in a form called an <strong>executable object program/files</strong> and stored as <strong>a binary disk file</strong>. </p>
+</blockquote>
+<p>GCC compiler driver</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">unix&gt;</span><span class="bash"> gcc -o hello hello.c</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://p3h0lbsz1.bkt.clouddn.com/CSAPP_Ch1_1_1.png" alt="The compilation system"></p>
+<blockquote>
+<p><strong>Preprorocessing phase</strong></p>
+<ul>
+<li>Function<br>The preprocessor (cpp) modifies the original C program according to directives(指令) that begin with <strong>the # character</strong>.</li>
+<li>Example <figure class="highlight plain"><figcaption><span><stdio.h>```command in line 1 of hello.c tells the preprocessor to **read** the contents of the system header file **stdio.h** and **insert** it directly **into the program text**.</stdio.h></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">&gt; * Result</span><br><span class="line">Another C program, typically with the **.i suffix**.</span><br><span class="line"></span><br><span class="line">&gt; **Compilation phase**</span><br><span class="line"></span><br><span class="line">&gt; * Function</span><br><span class="line"> The compiler (cc1) **translates** the text file **hello.i** into the text file **hello.s**, which contains an **assembly-language** program.</span><br><span class="line">&gt; * Assembly-language</span><br><span class="line"> It **provides a common output language** for different compilers for different high-level languages.</span><br><span class="line">&gt; * Result</span><br><span class="line">A text file **hello.s**.</span><br><span class="line"></span><br><span class="line">&gt; **Assembly phase**</span><br><span class="line"></span><br><span class="line">&gt; * Function</span><br><span class="line">  The assembler (as) **translates hello.s** into **machine-language instructions**, packages them in a form known as a **relocatable object.</span><br><span class="line">program**, and stores the result in the **object file hello.o**.</span><br><span class="line">&gt; * hello.o</span><br><span class="line"> a **binary file** whose bytes **encode** machine language instructions rather than characters.</span><br><span class="line">&gt; * Result</span><br><span class="line">A binary file **hello.o**.</span><br><span class="line"></span><br><span class="line">&gt; **Linking phase**</span><br><span class="line"></span><br><span class="line">&gt; * Function</span><br><span class="line"> **Merge** separate precompiled object files like **printf.o** since hello program **calls the printf function**, which is part of the standard C library provided by every C compiler.</span><br><span class="line">&gt; * Result</span><br><span class="line">An executable object file, also a binary disk file.</span><br><span class="line"></span><br><span class="line">### It Pays to Understand How Compilation Systems Work</span><br><span class="line"></span><br><span class="line">why programmers need to understand how compilation systems work</span><br><span class="line"></span><br><span class="line">&gt; * Optimizing program performance</span><br><span class="line">Is a **switch** statement always more efficient than a sequence of **if-else** statements?</span><br><span class="line">&gt; * Understanding link-time errors</span><br><span class="line">What happens if you define two global variables in **different** C files with the **same** name?</span><br><span class="line">&gt; * Avoiding security holes</span><br><span class="line"> **Buffer overflow** vulnerabilities.</span><br><span class="line"></span><br><span class="line">### Processors Read and Interpret Instructions Stored in Memory</span><br><span class="line"></span><br><span class="line">#### Hardware Organization of a System</span><br><span class="line"></span><br><span class="line">To understand what happens to our hello program when we run it, we need to understand the hardware organization of a typical system.</span><br><span class="line"></span><br><span class="line">![Hardware organization of a typical system][2]</span><br><span class="line"></span><br><span class="line">&gt; **Buses(总线)**</span><br><span class="line"></span><br><span class="line">&gt; * Definition</span><br><span class="line">Running throughout the system is **a collection of electrical conduits** called buses that **carry bytes of information back and forth** between the components.</span><br><span class="line">&gt; * Features</span><br><span class="line">(1) Buses are typically designed to transfer **fixed-sized chunks of bytes** known as **words(字)**. </span><br><span class="line">(2) The number of bytes in a word/**the word size(字长)** is a **fundamental system parameter** that varies across systems.</span><br><span class="line">&gt; * Assumptions</span><br><span class="line">(1) A word size of **4** bytes.</span><br><span class="line">(2) Buses transfer only one word at a time.</span><br><span class="line"></span><br><span class="line">&gt; **I/O Devices**</span><br><span class="line"></span><br><span class="line">&gt; * Definition</span><br><span class="line">Input/output (I/O) devices are the **system&apos;s connection to the external world**.</span><br><span class="line">&gt; * Exampless</span><br><span class="line">(1) A keyboard and mouse for user input. </span><br><span class="line">(2) A display for user output.</span><br><span class="line">(3) A disk drive (or simply disk) for long-term storage of</span><br><span class="line">data and programs.</span><br><span class="line">&gt; * Features</span><br><span class="line">Each I/O device is connected to the I/O bus by either a **controller** or an **adapter**.</span><br><span class="line">(1) Controller: **Chip sets** in the device itself or on the system&apos;s main printed circuit board (often called the motherboard)</span><br><span class="line">(2) Adapter: A **card** that **plugs into a slot** on the motherboard</span><br><span class="line"></span><br><span class="line">&gt; **Main Memory**</span><br><span class="line"></span><br><span class="line">&gt; * Definition</span><br><span class="line"> A **temporary storage device** that holds both a program and</span><br><span class="line">the data it manipulates while the processor is executing the program.</span><br><span class="line">&gt; * Constitution</span><br><span class="line">(1) Physically: a collection of dynamic random accessmemory (DRAM)</span><br><span class="line">chips. </span><br><span class="line">(2) Logically: organized as **a linear array of bytes**, each with its own **unique address** (array index) starting at zero.</span><br><span class="line"></span><br><span class="line">&gt; **Processor**</span><br><span class="line"></span><br><span class="line">&gt; * Definition</span><br><span class="line"> The **central processing unit (CPU)**, or simply processor, is the **engine** that interprets (or executes) instructions stored in main memory.</span><br><span class="line">&gt; * Constitution</span><br><span class="line">(1) **program counter (PC)**: **a word-sized** storage device/**register** (寄存器) pointing at (contains the **address** of) some machine-language **instruction** in main memory. </span><br><span class="line">(2) **register file**: a small storage device that consists of **a collection of word-sized registers**, each with its own unique name.</span><br><span class="line">(3)  **arithmetic/logic unit (ALU)**: computes new data and address values.</span><br><span class="line">&gt; * how to work</span><br><span class="line">The processor **reads the instruction from memory** pointed at by the</span><br><span class="line">programcounter(PC), **interprets the bits** in the instruction,**performs some simple operation** dictated by the instruction, and then **updates the PC** to point to the next instruction, which **may or may not be contiguous in memory** to the instruction that was just executed.</span><br><span class="line">&gt; * Some operations</span><br><span class="line">(1) Load: **Copy** a byte or a word **from main memory into a register**, overwriting the previous contents of the register.</span><br><span class="line">(2) Store: **Copy** a byte or a word **from a register to a location in main memory**, overwriting the previous contents of that location.</span><br><span class="line">(3) Operate:**Copy** the contents of **two registers to the ALU**, perform an **arithmetic operation** on the two words, and **store the result in a register**, overwriting the previous contents of that register.</span><br><span class="line">(4) Jump: **Extract** a word **from the instruction** itself and **copy** that word **into the program counter (PC)**, overwriting the previous value of the PC.</span><br><span class="line"></span><br><span class="line">#### Running the hello Program</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>unix&gt; ./hello<br>hello, world<br>unix&gt;<br>```</p>
+<blockquote>
+<p>As we <strong>type the characters</strong> <code>./hello</code> at the keyboard, the shell<br>program <strong>reads each one into a register</strong>, and then <strong>stores it in memory</strong>.</p>
+</blockquote>
+<p><img src="http://p3h0lbsz1.bkt.clouddn.com/CSAPP_Ch1_4_2.png" alt="Reading the hello command from the keyboard"></p>
+<blockquote>
+<p>When we <strong>hit the enter key</strong> on the keyboard, the shell knows that we have finished typing the command. The shell then <strong>loads the executable hello file</strong> by executing a sequence of instructions that copies the code and data in the hello object file <strong>from disk to main memory</strong>.</p>
+</blockquote>
+<p><img src="http://p3h0lbsz1.bkt.clouddn.com/CSAPP_Ch1_4_3.png" alt="Loading the executable from disk into main memory"></p>
+<blockquote>
+<p>Once the code and data in the hello object file are loaded into memory, the processor begins <strong>executing the machine-language instructions</strong> in the hello program’s main routine. These instructions <strong>copy the bytes</strong> in the <code>hello, world\n</code> string <strong>from memory to the register file</strong>, and <strong>from there to the display device</strong>, where they are displayed on the screen. </p>
+</blockquote>
+<p><img src="http://p3h0lbsz1.bkt.clouddn.com/CSAPP_CH1_4_4.png" alt="Writing the output string from memory to the display"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/Dijkstra/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2043,7 +2250,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2054,7 +2261,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2065,7 +2272,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -2116,7 +2323,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">4.5k</span>
+    <span title="Site words total count">5.7k</span>
   
 </div>
 

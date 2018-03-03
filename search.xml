@@ -20,10 +20,10 @@
         <category>Paper Reading Notes</category>
       </categories>
       <tags>
-        <tag>Machine Learning</tag>
         <tag>Computer Vision</tag>
         <tag>Natural Language Processing</tag>
         <tag>Visual Recognition</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -34,8 +34,8 @@
         <category>Algorithm Code</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>Matlab</tag>
+        <tag>Code</tag>
         <tag>Floyd-Warshall</tag>
       </tags>
   </entry>
@@ -47,8 +47,8 @@
         <category>Algorithm Code</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>Matlab</tag>
+        <tag>Code</tag>
         <tag>Dijkstra</tag>
       </tags>
   </entry>
@@ -61,9 +61,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
+        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
-        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -75,9 +75,9 @@
         <category>Array-Medium</category>
       </categories>
       <tags>
+        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
-        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -89,9 +89,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
+        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
-        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -103,9 +103,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
+        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
-        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -117,14 +117,14 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
+        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
-        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ch1 统计学习方法概论（1）]]></title>
-    <url>%2F2018%2F01%2F31%2FCh1%20%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E6%A6%82%E8%AE%BA%EF%BC%881%EF%BC%89%2F</url>
+    <title><![CDATA[Ch1 统计学习方法概论 (1)]]></title>
+    <url>%2F2018%2F01%2F31%2FCh1%20%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E6%A6%82%E8%AE%BA%20(1)%2F</url>
     <content type="text"><![CDATA[统计学习基本概念&emsp;&emsp;对象：数据（data）&emsp;&emsp;数据的基本假设：同类数据具有一定的规律统计性&emsp;&emsp;目的：对数据进行预测和分析 方法&emsp;&emsp;监督学习（supervised learning）&emsp;&emsp;非监督学习（unsupervised learning）&emsp;&emsp;半监督学习（semi-supervised learning）&emsp;&emsp;强化学习（reinforcement learning） 监督学习&emsp;&emsp;（1）从有限的训练数据（training data）集合出发，假设数据独立同分布&emsp;&emsp;（2）确定假设空间（hypothesis space），即假设要学习的模型属于某个函数的集合&emsp;&emsp;（3）确定评价准则（evaluation criterion），即选取最优模型的策略&emsp;&emsp;（4）实现选取最优模型的算法，即学习的算法&emsp;&emsp;（5）通过学习方法选择最优模型&emsp;&emsp;（6）利用最优模型对新数据进行预测或分析 三要素&emsp;&emsp;模型（model）：模型的假设空间&emsp;&emsp;策略（strategy）：模型选择的准则&emsp;&emsp;算法（algorithm）：模型学习的算法 监督学习基本概念&emsp;&emsp;输入空间（input space）：输入的所有可能取值的集合&emsp;&emsp;输出空间（output space）：输出的所有可能取值的集合&emsp;&emsp;实例（instance）：每个具体的输入，通常由特征向量（feature vector）表示&emsp;&emsp;特征空间（feature space）：所有特征向量存在的空间。模型实际上都是定义在特征空间上&emsp;&emsp;基本假设：输入和输出的随机变量 $X、Y$ 遵循联合概率分布 $P(X,Y)$ 习惯表示&emsp;&emsp;输入、输出变量用大写字母表示，如 $X、Y$&emsp;&emsp;输入、输出变量所取的值用小写字母表示，如 $x、y$&emsp;&emsp;$x_i$ 表示多个输入变量中的第 $i$ 个&emsp;&emsp;实例$x_i$的特征向量 $x_i = (x_i^{(1)},x_i^{(2)},…,x_i^{(n)})^{T}$，$x_i^{(j)}$ 表示 $x_i$ 的第 $j$ 个特征&emsp;&emsp;训练集由输入输出对，即样本（sample）组成，通常表示为 $T = \lbrace (x_1,y_1) ,(x_2,y_2) ,…,(x_N,y_N) \rbrace$&emsp;&emsp;对具体输入进行相应的输出预测时，写作 $P(y|x)$ （模型为概率模型，即由条件分布 $P(Y|X)$ 表示）或 $y = f(x)$ （模型为非概率模型，即由决策函数 $Y = f(X)$ 表示） 不同类型&emsp;&emsp;回归问题：输入和输出变量均为连续变量的预测问题&emsp;&emsp;分类问题：输出变量为有限个离散变量的预测问题&emsp;&emsp;标注问题：输入和输出变量均为变量序列的预测问题 统计学习三要素模型&emsp;&emsp;监督学习过程中，模型即为所要学习的条件概率分布或决策函数，而模型的假设空间（hypothesis space）包含所有可能的条件概率分布和决策函数。假设空间中的模型一般有无穷多个。&emsp;&emsp;假设空间用 $F$ 表示。&emsp;&emsp;$F$ 可以定义为决策函数的集合，$F = \lbrace f|Y = f(X) \rbrace$ 。此时 $F$ 通常为由一个参数向量 $\theta$ 决定的函数族。$F = \lbrace f|Y = f_{\theta}(X), \theta \in R^{n} \rbrace$ ,其中 $n$ 维欧氏空间 $R^{n}$ 称为参数空间（parameter space）。&emsp;&emsp;$F$ 也可以定义为条件概率的集合，$F = \lbrace P|P(Y|X) \rbrace$ 。此时 $F$ 通常也为由一个参数向量 $\theta$ 决定的条件概率分布族， $F = \lbrace P|P_\theta(Y|X) , \theta \in R^{n}\rbrace$ 。 策略&emsp;&emsp;考虑用什么样的准则来从假设空间中选取最优模型，引入一些概念。&emsp;&emsp;（1）损失函数（loss function）：用来度量一次预测的错误程度，为 $f(X)$ 和 $Y$ 的非负实值函数，记作 $L(Y,f(X))$ 。&emsp;&emsp;常用的损失函数：&emsp;&emsp;0-1损失函数（0-1 loss function）：$L(Y,f(X)) = \left \{ \begin{matrix}1,Y\neq f(X) \\ 0,Y=f(X) \end{matrix}\right.$&emsp;&emsp;平方损失函数（quadratic loss function）：$L(Y,f(X)) = (Y-f(X))^{2}$&emsp;&emsp;绝对损失函数（absolute loss function）：$L(Y,f(X)) = |Y-f(X)|$&emsp;&emsp;对数似然损失函数（log-likelihood loss function）：$L(Y,P(Y|X)) = -logP(Y|X)$&emsp;&emsp;（2）风险函数（risk function）/期望损失（expected loss）：平均意义下模型预测的好坏，即损失函数的期望，或者说是 $f(X)$ 关于联合分布 $P(X,Y)$ 的平均意义下的损失。&emsp;&emsp;&emsp;&emsp;$R_{exp}(f) = E_p[L(Y,f(X))] = \int_{X \ast Y} L(y,f(x))P(x,y)dxdy$&emsp;&emsp;（3）经验风险（empirical risk）/经验损失（empirical loss）：模型关于训练数据集的平均损失。&emsp;&emsp;&emsp;&emsp;$R_{emp}(f) = \frac{1}{N} \sum_{i=1}^{N} L(y_i,f(x_i))$&emsp;&emsp;学习的目标是选择期望风险最小的模型，然而联合分布 $P(X,Y)$ 未知，根据大数定律，当样本容量区域正无穷时，经验风险趋近于期望风险，故可用经验风险来估计期望风险。&emsp;&emsp;而实际中训练样本数目有限，需要矫正经验风险。&emsp;&emsp;（4）结构风险（structural risk）：在经验风险的基础上加上表示模型复杂度的正则化项（regularizer）。&emsp;&emsp;&emsp;&emsp;$R_{srm}(f) = \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i)) + \lambda J(f)$&emsp;&emsp;$J(f)$ 为模型的复杂度，是定义在假设空间 $F$ 上的泛函。模型 $f$ 越复杂， $J(f)$ 越大，反之则越小； $\lambda$ 为非负系数，用来权衡经验风险和模型复杂度。&emsp;&emsp;（5）经验风险最小化（empirical risk minimization，ERM）：即认为，经验风险最小的模型为最优模型。此时最优模型的求解等价于求解最优化问题：&emsp;&emsp;&emsp;&emsp;$\underset{f \in F}{min} \quad \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i))$&emsp;&emsp;（5）结构风险最小化（structural risk minimization，SRM）：即认为，结构风险最小的模型为最优模型。此时最优模型的求解等价于求解最优化问题：&emsp;&emsp;&emsp;&emsp;$\underset{f \in F}{min} \quad \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i)) + \lambda J(f)$ 算法&emsp;&emsp;此时，监督学习问题归结为最优化问题，算法即为求解最优化问题的算法。通常最优化问题的显式的解析解不存在，则需要应用数值计算的方法求解，关键在于如何高效地找到全局最优解。]]></content>
       <categories>
         <category>Book Reading Notes</category>

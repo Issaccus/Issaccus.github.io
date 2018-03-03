@@ -1,35 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[DeViSE A Deep Visual-Semantic Embedding Model]]></title>
-    <url>%2F2018%2F02%2F03%2FDeViSE%20A%20Deep%20Visual-Semantic%20Embedding%20Model%2F</url>
-    <content type="text"><![CDATA[DeViSE: A Deep Visual-Semantic Embedding ModelAbstract&emsp;&emsp;在视觉识别任务中，当需要识别的分类很多时，训练数据（已标记的图片）的匮乏限制了识别系统的识别能力。本文利用已标记的图片数据（ labeled image data）和未注释文本中的语义信息（ semantic information gleaned from unannotated text）建立了深度视觉-语义嵌入模型（DeViSE），并在”1000-class ImageNet object recognition challenge”达到最优的性能，同时说明了可以通过充分利用语义信息来对训练数据集外的10,000个图像标签进行预测。 Introduction&emsp;&emsp;视觉世界由大量物体组成，而物体的标签是模糊的，对于不同的任务可能有不同的标签，或者可能存在多个标签。当前最先进的识别系统采用了严格定义一个小的标签类，并人为地把图像指派给不同标签的方法，根据标签建立已标记的训练数据集，识别系统即建立在一个N类的离散分类器上。因为N个标签是离散且无关的，识别系统就不能将和已有标签相关的语义信息转移到未曾见过的词语，一个解决办法就是不再人为地把图像划分到离散的类里，而是考虑视觉空间的自然连续性。&emsp;&emsp;DeViSE利用文本信息来学习标签之间的语义联系，并把图像映射到一个语义嵌入空间。DeviSE和目前最先进的识别系统有同级别的性能，并且可以利用视觉和语义之间的相似性来为未见过的分类预测其标签。 Previous Work&emsp;&emsp;… Proposed Approach&emsp;&emsp;方法的目标是利用文本域上学习到的语义信息，转移到一个训练好的识别系统上。首先预训练一个简单的神经语言模型来学习词语的向量表示，同时再预训练一个最先进的物体识别神经网络，连同传统的softmax输出层。然后使用softmax输出层的上一层，重新训练来预测语言模型得到的向量表示，由此建立一个深度的视觉-语义模型。 Language Model Pre-training&emsp;&emsp;The skip-gram text modeling architecture [1, 2]&emsp;&emsp;模型通过预测文档中每个词项的邻近词项将词项表示成嵌入向量。因为同义词倾向于出项在相似的语境下，用这个简单的目标函数驱使模型为语义相关的词语学习到相似的嵌入向量。&emsp;&emsp;数据集： 从wikipedia.org上抽取的5,700,000个文档，包含5,400,000,000个词语。网页上的文本被分割成若干个词语或词组，和常用的视觉物体识别数据集（ Imagenet: A large-scale hierarchical image database）组成了一个约155,000个词项的词典。 Visual Model Pre-training&emsp;&emsp;based on the winning model for the 1,000-class ImageNet Large Scale Visual Recognition Challenge (ILSVRC) 2012 [1]&emsp;&emsp;该模型作为性能比较的基准，同时也是视觉-语义嵌入模型的初始化之一。&emsp;&emsp;数据集：ILSVRC 2012 1K dataset Deep Visual-Semantic Embedding Model&emsp;&emsp;Continued…]]></content>
-      <categories>
-        <category>Paper Reading Notes</category>
-      </categories>
-      <tags>
-        <tag>Computer Vision</tag>
-        <tag>Natural Language Processing</tag>
-        <tag>Visual Recognition</tag>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Floyd-Warshall]]></title>
-    <url>%2F2018%2F02%2F02%2FFloyd-Warshall%2F</url>
-    <content type="text"><![CDATA[Floyd-WarshallDescription &emsp;&emsp;Floyd-Warshall算法解决的是所有结点对的最短路径问题，该算法允许负权重的存在，但不允许存在权重为负值的环路。Floyd-Warshall算法考虑的是一条最短路径上的中间结点。假设所有结点为 $V = \{1, 2, …, n\}$ ，考虑某个子集 $K = \{1, 2, …, k\}$ ，令 $p_{ij}^{k}$ 为从 $i$ 到 $j$ 的一条最短路径,其中间结点都属于子集K, $d_{ij}^{k}$ 为对应的距离。若结点 $k$ 不属于该最短路径，则 $d_{ij}^{k} = d_{ij}^{k-1}$ ；否则 $d_{ij}^{k} = d_{ik}^{k-1} + d_{kj}^{k-1}$。当 $K = V$ 时，即可解出。 Matlab Code12345678910111213141516171819202122232425262728293031323334353637383940function [passby, dist] = Floyd_Warshall(G)% Floyd_Warshall所有结点对最短路径问题% passby：存储中间结点矩阵，passby(i,j)=k则说明i-j的最短路径经过k% dist：最短距离矩阵% G：带权邻接矩阵，对角线的值为0% By Issaccus 2018%initializev_num = size(G, 1);old_dist = G;old_passby = inf(v_num);dist = zeros(v_num);passby = zeros(v_num);for i = 1:v_num for j = 1:v_num if i == j || G(i, j) == inf old_passby(i, j) = inf; %i-j之间没有中间结点 else old_passby(i, j) = i; end endend%solvefor k = 1:v_num for i = 1:v_num for j = 1:v_num if old_dist(i, j) &gt; old_dist(i, k) + old_dist(k, j) %k在i-j的最短路径上 dist(i, j) = old_dist(i, k) + old_dist(k, j); %更新为i-k-j的路径 passby(i, j) = old_passby(k, j); else %k不在i-j的最短路径上 dist(i, j) = old_dist(i, j); passby(i, j) = old_passby(i, j); end end end old_dist = dist; old_passby = passby;endend]]></content>
-      <categories>
-        <category>Algorithm Code</category>
-      </categories>
-      <tags>
-        <tag>Matlab</tag>
-        <tag>Code</tag>
-        <tag>Floyd-Warshall</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Ch1 A Tour of Computer Systems (1)]]></title>
-    <url>%2F2018%2F02%2F02%2FCh1%20A%20Tour%20of%20Computer%20Systems%20(1)%2F</url>
+    <url>%2F2018%2F03%2F03%2FCh1%20A%20Tour%20of%20Computer%20Systems%20(1)%2F</url>
     <content type="text"><![CDATA[Information Is Bits + Contexthello.c The source program is a sequence of bits, each with a value of 0 or 1, organized in 8-bit chunks called bytes. Each byte represents some text character in the program. 123456#include &lt;stdio.h&gt;int main()&#123; printf("hello, world\n");&#125; A fundamental idea All information in a system—including disk files, programs stored in memory, user data stored in memory, and data transferred across a network—is represented as a bunch of bits. The only thing that distinguishes different data objects is the context in which we view them. Programs Are Translated by Other Programs into Different Forms The hello program begins life as a high-level C program. However, in order to run hello.c on the system, the individual C statements must be translated by other programs into a sequence of low-level machine-language instructions.These instructions are then packaged in a form called an executable object program/files and stored as a binary disk file. GCC compiler driver 1unix&gt; gcc -o hello hello.c Preprorocessing phase FunctionThe preprocessor (cpp) modifies the original C program according to directives(指令) that begin with the # character. Example ```command in line 1 of hello.c tells the preprocessor to **read** the contents of the system header file **stdio.h** and **insert** it directly **into the program text**.123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101&gt; * ResultAnother C program, typically with the **.i suffix**.&gt; **Compilation phase**&gt; * Function The compiler (cc1) **translates** the text file **hello.i** into the text file **hello.s**, which contains an **assembly-language** program.&gt; * Assembly-language It **provides a common output language** for different compilers for different high-level languages.&gt; * ResultA text file **hello.s**.&gt; **Assembly phase**&gt; * Function The assembler (as) **translates hello.s** into **machine-language instructions**, packages them in a form known as a **relocatable object.program**, and stores the result in the **object file hello.o**.&gt; * hello.o a **binary file** whose bytes **encode** machine language instructions rather than characters.&gt; * ResultA binary file **hello.o**.&gt; **Linking phase**&gt; * Function **Merge** separate precompiled object files like **printf.o** since hello program **calls the printf function**, which is part of the standard C library provided by every C compiler.&gt; * ResultAn executable object file, also a binary disk file.### It Pays to Understand How Compilation Systems Workwhy programmers need to understand how compilation systems work&gt; * Optimizing program performanceIs a **switch** statement always more efficient than a sequence of **if-else** statements?&gt; * Understanding link-time errorsWhat happens if you define two global variables in **different** C files with the **same** name?&gt; * Avoiding security holes **Buffer overflow** vulnerabilities.### Processors Read and Interpret Instructions Stored in Memory#### Hardware Organization of a SystemTo understand what happens to our hello program when we run it, we need to understand the hardware organization of a typical system.![Hardware organization of a typical system][2]&gt; **Buses(总线)**&gt; * DefinitionRunning throughout the system is **a collection of electrical conduits** called buses that **carry bytes of information back and forth** between the components.&gt; * Features(1) Buses are typically designed to transfer **fixed-sized chunks of bytes** known as **words(字)**. (2) The number of bytes in a word/**the word size(字长)** is a **fundamental system parameter** that varies across systems.&gt; * Assumptions(1) A word size of **4** bytes.(2) Buses transfer only one word at a time.&gt; **I/O Devices**&gt; * DefinitionInput/output (I/O) devices are the **system&apos;s connection to the external world**.&gt; * Exampless(1) A keyboard and mouse for user input. (2) A display for user output.(3) A disk drive (or simply disk) for long-term storage ofdata and programs.&gt; * FeaturesEach I/O device is connected to the I/O bus by either a **controller** or an **adapter**.(1) Controller: **Chip sets** in the device itself or on the system&apos;s main printed circuit board (often called the motherboard)(2) Adapter: A **card** that **plugs into a slot** on the motherboard&gt; **Main Memory**&gt; * Definition A **temporary storage device** that holds both a program andthe data it manipulates while the processor is executing the program.&gt; * Constitution(1) Physically: a collection of dynamic random accessmemory (DRAM)chips. (2) Logically: organized as **a linear array of bytes**, each with its own **unique address** (array index) starting at zero.&gt; **Processor**&gt; * Definition The **central processing unit (CPU)**, or simply processor, is the **engine** that interprets (or executes) instructions stored in main memory.&gt; * Constitution(1) **program counter (PC)**: **a word-sized** storage device/**register** (寄存器) pointing at (contains the **address** of) some machine-language **instruction** in main memory. (2) **register file**: a small storage device that consists of **a collection of word-sized registers**, each with its own unique name.(3) **arithmetic/logic unit (ALU)**: computes new data and address values.&gt; * how to workThe processor **reads the instruction from memory** pointed at by theprogramcounter(PC), **interprets the bits** in the instruction,**performs some simple operation** dictated by the instruction, and then **updates the PC** to point to the next instruction, which **may or may not be contiguous in memory** to the instruction that was just executed.&gt; * Some operations(1) Load: **Copy** a byte or a word **from main memory into a register**, overwriting the previous contents of the register.(2) Store: **Copy** a byte or a word **from a register to a location in main memory**, overwriting the previous contents of that location.(3) Operate:**Copy** the contents of **two registers to the ALU**, perform an **arithmetic operation** on the two words, and **store the result in a register**, overwriting the previous contents of that register.(4) Jump: **Extract** a word **from the instruction** itself and **copy** that word **into the program counter (PC)**, overwriting the previous value of the PC.#### Running the hello Program unix&gt; ./hellohello, worldunix&gt;``` As we type the characters ./hello at the keyboard, the shellprogram reads each one into a register, and then stores it in memory. When we hit the enter key on the keyboard, the shell knows that we have finished typing the command. The shell then loads the executable hello file by executing a sequence of instructions that copies the code and data in the hello object file from disk to main memory. Once the code and data in the hello object file are loaded into memory, the processor begins executing the machine-language instructions in the hello program’s main routine. These instructions copy the bytes in the hello, world\n string from memory to the register file, and from there to the display device, where they are displayed on the screen.]]></content>
       <categories>
         <category>Book Reading Notes， CSAPP</category>
@@ -40,6 +13,33 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[DeViSE A Deep Visual-Semantic Embedding Model]]></title>
+    <url>%2F2018%2F02%2F03%2FDeViSE%20A%20Deep%20Visual-Semantic%20Embedding%20Model%2F</url>
+    <content type="text"><![CDATA[DeViSE: A Deep Visual-Semantic Embedding ModelAbstract&emsp;&emsp;在视觉识别任务中，当需要识别的分类很多时，训练数据（已标记的图片）的匮乏限制了识别系统的识别能力。本文利用已标记的图片数据（ labeled image data）和未注释文本中的语义信息（ semantic information gleaned from unannotated text）建立了深度视觉-语义嵌入模型（DeViSE），并在”1000-class ImageNet object recognition challenge”达到最优的性能，同时说明了可以通过充分利用语义信息来对训练数据集外的10,000个图像标签进行预测。 Introduction&emsp;&emsp;视觉世界由大量物体组成，而物体的标签是模糊的，对于不同的任务可能有不同的标签，或者可能存在多个标签。当前最先进的识别系统采用了严格定义一个小的标签类，并人为地把图像指派给不同标签的方法，根据标签建立已标记的训练数据集，识别系统即建立在一个N类的离散分类器上。因为N个标签是离散且无关的，识别系统就不能将和已有标签相关的语义信息转移到未曾见过的词语，一个解决办法就是不再人为地把图像划分到离散的类里，而是考虑视觉空间的自然连续性。&emsp;&emsp;DeViSE利用文本信息来学习标签之间的语义联系，并把图像映射到一个语义嵌入空间。DeviSE和目前最先进的识别系统有同级别的性能，并且可以利用视觉和语义之间的相似性来为未见过的分类预测其标签。 Previous Work&emsp;&emsp;… Proposed Approach&emsp;&emsp;方法的目标是利用文本域上学习到的语义信息，转移到一个训练好的识别系统上。首先预训练一个简单的神经语言模型来学习词语的向量表示，同时再预训练一个最先进的物体识别神经网络，连同传统的softmax输出层。然后使用softmax输出层的上一层，重新训练来预测语言模型得到的向量表示，由此建立一个深度的视觉-语义模型。 Language Model Pre-training&emsp;&emsp;The skip-gram text modeling architecture [1, 2]&emsp;&emsp;模型通过预测文档中每个词项的邻近词项将词项表示成嵌入向量。因为同义词倾向于出项在相似的语境下，用这个简单的目标函数驱使模型为语义相关的词语学习到相似的嵌入向量。&emsp;&emsp;数据集： 从wikipedia.org上抽取的5,700,000个文档，包含5,400,000,000个词语。网页上的文本被分割成若干个词语或词组，和常用的视觉物体识别数据集（ Imagenet: A large-scale hierarchical image database）组成了一个约155,000个词项的词典。 Visual Model Pre-training&emsp;&emsp;based on the winning model for the 1,000-class ImageNet Large Scale Visual Recognition Challenge (ILSVRC) 2012 [1]&emsp;&emsp;该模型作为性能比较的基准，同时也是视觉-语义嵌入模型的初始化之一。&emsp;&emsp;数据集：ILSVRC 2012 1K dataset Deep Visual-Semantic Embedding Model&emsp;&emsp;Continued…]]></content>
+      <categories>
+        <category>Paper Reading Notes</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Computer Vision</tag>
+        <tag>Natural Language Processing</tag>
+        <tag>Visual Recognition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Floyd-Warshall]]></title>
+    <url>%2F2018%2F02%2F02%2FFloyd-Warshall%2F</url>
+    <content type="text"><![CDATA[Floyd-WarshallDescription &emsp;&emsp;Floyd-Warshall算法解决的是所有结点对的最短路径问题，该算法允许负权重的存在，但不允许存在权重为负值的环路。Floyd-Warshall算法考虑的是一条最短路径上的中间结点。假设所有结点为 $V = \{1, 2, …, n\}$ ，考虑某个子集 $K = \{1, 2, …, k\}$ ，令 $p_{ij}^{k}$ 为从 $i$ 到 $j$ 的一条最短路径,其中间结点都属于子集K, $d_{ij}^{k}$ 为对应的距离。若结点 $k$ 不属于该最短路径，则 $d_{ij}^{k} = d_{ij}^{k-1}$ ；否则 $d_{ij}^{k} = d_{ik}^{k-1} + d_{kj}^{k-1}$。当 $K = V$ 时，即可解出。 Matlab Code12345678910111213141516171819202122232425262728293031323334353637383940function [passby, dist] = Floyd_Warshall(G)% Floyd_Warshall所有结点对最短路径问题% passby：存储中间结点矩阵，passby(i,j)=k则说明i-j的最短路径经过k% dist：最短距离矩阵% G：带权邻接矩阵，对角线的值为0% By Issaccus 2018%initializev_num = size(G, 1);old_dist = G;old_passby = inf(v_num);dist = zeros(v_num);passby = zeros(v_num);for i = 1:v_num for j = 1:v_num if i == j || G(i, j) == inf old_passby(i, j) = inf; %i-j之间没有中间结点 else old_passby(i, j) = i; end endend%solvefor k = 1:v_num for i = 1:v_num for j = 1:v_num if old_dist(i, j) &gt; old_dist(i, k) + old_dist(k, j) %k在i-j的最短路径上 dist(i, j) = old_dist(i, k) + old_dist(k, j); %更新为i-k-j的路径 passby(i, j) = old_passby(k, j); else %k不在i-j的最短路径上 dist(i, j) = old_dist(i, j); passby(i, j) = old_passby(i, j); end end end old_dist = dist; old_passby = passby;endend]]></content>
+      <categories>
+        <category>Algorithm Code</category>
+      </categories>
+      <tags>
+        <tag>Code</tag>
+        <tag>Matlab</tag>
+        <tag>Floyd-Warshall</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Dijkstra]]></title>
     <url>%2F2018%2F02%2F02%2FDijkstra%2F</url>
     <content type="text"><![CDATA[DijkstraDescription &emsp;&emsp;Dijkstra算法解决的是带权重的有向图上单源最短路径问题，该算法要求所有边的权重都为非负值……Dijkstra算法在运行过程中维持的关键信息是一组结点集合S。从源结点s到该集合中每个结点之间的最短路径已经被找到。算法重复从结点集V-S中选择最短路径估计最小的点u，将u加入到集合S，然后对所有从u出发的边进行松弛。（《算法导论》） Matlab Code123456789101112131415161718192021222324252627282930313233343536373839404142434445function [route, dist] = Dijkstra(s, graph)% Dijkstra 单源最短路径算法% s：起始点；graph：带权的邻接矩阵，没有边或者在对角线上的值为inf% route：矩阵，每一列的倒序为起始点到某个终点最短路的顶点序列；dist：行向量，对应每一条最短路的距离% By Issaccus 2018%initializev_num = size(graph,1); %顶点数route = inf(v_num); route(1, :) = 1:v_num;dist = inf(1, v_num);prev = inf(1, v_num);S = ones(1, v_num); S(s) = inf; %值为inf则表示该结点已被真正探索过，放入点集Sfor i = 1:v_num dist(i) = graph(s, i); if ~(dist(i) == inf) %起始点可到达的顶点 prev(i) = s; %前驱都为起始点 endend% slovefor i = 2:v_num [index_dist, index] = min(dist .* S); % S(index) = inf; dist(index) = index_dist; %更新最短距离 for j = 1:v_num if ~(S(j) == inf) %对未放入点集S的点进行松弛操作 if index_dist + graph(index, j) &lt; dist(j) dist(j) = index_dist + graph(index, j); %更新最短距离 prev(j) = index; %更新前驱 end end endend%print routefor i = 1:v_num prev_i = prev(i); j = 2; while ~(prev_i == inf) route(j, i) = prev_i; j = j + 1; prev_i = prev(prev_i); %回溯前驱的前驱 endenddist(s) = 0; end]]></content>
@@ -47,8 +47,8 @@
         <category>Algorithm Code</category>
       </categories>
       <tags>
-        <tag>Matlab</tag>
         <tag>Code</tag>
+        <tag>Matlab</tag>
         <tag>Dijkstra</tag>
       </tags>
   </entry>
@@ -61,9 +61,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -75,9 +75,9 @@
         <category>Array-Medium</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -89,9 +89,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -103,9 +103,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
@@ -117,9 +117,9 @@
         <category>Array-Easy</category>
       </categories>
       <tags>
-        <tag>Code</tag>
         <tag>OJ</tag>
         <tag>LeetCode-Algorithms</tag>
+        <tag>Code</tag>
       </tags>
   </entry>
   <entry>
